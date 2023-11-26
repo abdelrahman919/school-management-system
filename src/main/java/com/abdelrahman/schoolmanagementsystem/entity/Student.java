@@ -1,12 +1,14 @@
 package com.abdelrahman.schoolmanagementsystem.entity;
 
 
+import com.abdelrahman.schoolmanagementsystem.Enums.Gender;
+import com.abdelrahman.schoolmanagementsystem.Enums.Level;
 import com.abdelrahman.schoolmanagementsystem.validation.Phone;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,45 +30,49 @@ public class Student {
     Integer studentId;
 
     @NotEmpty
-    String studentFullName;
+    private String studentFullName;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    LocalDate dateOfBirth;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate dateOfBirth;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    LocalDate enrollmentDate;
+
+
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate enrollmentDate;
 
     @NotNull
-    Gender gender;
+    private Gender gender;
 
-    //@Pattern(regexp= "^0(10|11|12|15)[0-9]{8}$")
+
     @Phone
-    String phoneNumber;
+    private String phoneNumber;
 
 
-    @OneToMany(mappedBy = "student")
+    @ManyToOne(cascade = CascadeType.ALL,
+                fetch = FetchType.LAZY)
+    @JoinColumn()
+    private Guardian guardian;
 
-    List<Guardian> guardian;
-
-    String address;
-
-
-
-
-
-    Level level ;
+    @NotBlank
+    private String address;
 
 
-   // GradeSheet gradeSheet;
+    private Level level ;
+
+    @OneToMany//TODO
+    private List<Grade> gradeSheet;
 
 
-  //  AttendanceRecord attendanceRecord;
+  //  private AttendanceRecord attendanceRecord;
+
+    @ManyToOne //TODO
+    private Classroom classroom;
 
 
-    boolean isEnabled = false;
+    private boolean isEnabled = false;
 
 
-    boolean passed;
+    private boolean passed;
 
 
 

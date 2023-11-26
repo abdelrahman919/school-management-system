@@ -5,9 +5,12 @@ import com.abdelrahman.schoolmanagementsystem.validation.Phone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -18,20 +21,18 @@ public class Guardian {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "guardianIdGen")
     @SequenceGenerator(name = "guardianIdGen", allocationSize = 1)
-    Long guardianId;
+    private Long guardianId;
 
     @NotBlank
-    String guardianName;
+    private String guardianName;
 
     @NotBlank
-    String guardianRelation;
+    private String guardianRelation;
 
     @Phone
-    String guardianPhoneNumber;
+    private String guardianPhoneNumber;
 
-    @ManyToOne(fetch = FetchType.EAGER,
-                cascade = CascadeType.ALL)
-    @JoinColumn(name ="student_id"
-            ,referencedColumnName = "studentId")
-    Student student;
+    /*@OneToMany(mappedBy = "guardian")
+    @NotNull
+    List<Student> student;*/
 }

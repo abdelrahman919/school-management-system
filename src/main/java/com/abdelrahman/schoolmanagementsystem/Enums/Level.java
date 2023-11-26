@@ -1,4 +1,4 @@
-package com.abdelrahman.schoolmanagementsystem.entity;
+package com.abdelrahman.schoolmanagementsystem.Enums;
 
 public enum Level {
     ELEMENTARY,

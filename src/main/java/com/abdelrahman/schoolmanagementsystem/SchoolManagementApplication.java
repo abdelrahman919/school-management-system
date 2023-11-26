@@ -10,4 +10,10 @@ public class SchoolManagementApplication {
 		SpringApplication.run(SchoolManagementApplication.class, args);
 	}
 
+	final String  btts = "dd-MM-yyyy";
+
+
+
+
+
 }
