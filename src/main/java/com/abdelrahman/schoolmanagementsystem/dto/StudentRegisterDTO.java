@@ -1,36 +1,29 @@
-package com.abdelrahman.schoolmanagementsystem.entity;
+package com.abdelrahman.schoolmanagementsystem.dto;
 
 
+import com.abdelrahman.schoolmanagementsystem.entity.*;
 import com.abdelrahman.schoolmanagementsystem.enums.Gender;
 import com.abdelrahman.schoolmanagementsystem.enums.Level;
 import com.abdelrahman.schoolmanagementsystem.validation.Phone;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.apache.catalina.User;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
-
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Map;
 
-
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
-public class Student {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "studentIdGen")
-    @SequenceGenerator(name = "studentIdGen", allocationSize = 1)
-    Integer id;
+@Data
+public class StudentRegisterDTO {
 
     @NotEmpty(message = "Pleas enter your name")
     @Size(max = 60)
@@ -58,13 +51,12 @@ public class Student {
     @Size(min = 10,max = 70)
     private String address;
 
-    @NotNull
+
     @Enumerated(EnumType.STRING)
     private Level level ;
 
 
-    @Email(regexp = "^[\\w.-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,}$",
-            message = "Enter a valid email ")
+    @Email(message = "Enter a valid email ")
     @Column(unique = true)
     private String email;
 
@@ -73,36 +65,9 @@ public class Student {
             message = "Password must be 8-20 characters" )
     private String password;
 
-
-    ////////////////////////
-
-    @ManyToOne(cascade = CascadeType.ALL)
     private Guardian guardian;
 
-
-
-    @JsonIgnore
-    @ElementCollection
-    @CollectionTable(name = "student_grades",
-            joinColumns = @JoinColumn(name = "student_id"))
-    @MapKeyJoinColumn(name = "exam_id",referencedColumnName = "id")
-    @Column(name = "score")
-    Map<Exam, Integer> gradeSheet;
-
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private AttendanceRecord attendanceRecord;
-
-
-    @ManyToOne
-    @JsonBackReference
     private Classroom classroom;
-
-
-    private boolean isEnabled = false;
-
-
-    private boolean passed;
 
 
 

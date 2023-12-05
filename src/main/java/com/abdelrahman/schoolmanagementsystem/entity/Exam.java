@@ -1,43 +1,50 @@
 package com.abdelrahman.schoolmanagementsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Exam {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
+public class Exam implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "examIdGen")
     @SequenceGenerator(name = "examIdGen", allocationSize = 1)
-    private Long examId;
+    private Long id;
 
-    @ManyToOne//TODO
+
+    private String name;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Subject subject;
 
-    @ManyToMany //TODO
-    private List<Student> students;
+
 
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
 
-    @NotNull
+  //  @NotNull
     private Integer maxScore;
 
-    @NotNull
+  //  @NotNull
     private Integer passScore;
 
-    @OneToMany //TODO
-    private List <Grade> grades;
+
+
+
+
 }
