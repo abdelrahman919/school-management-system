@@ -1,7 +1,7 @@
 package com.abdelrahman.schoolmanagementsystem.service;
 
-import com.abdelrahman.schoolmanagementsystem.dto.StudentDto;
-import com.abdelrahman.schoolmanagementsystem.dto.StudentRegisterDTO;
+import com.abdelrahman.schoolmanagementsystem.dto.student.StudentDto;
+import com.abdelrahman.schoolmanagementsystem.dto.student.StudentRegisterDTO;
 import com.abdelrahman.schoolmanagementsystem.entity.Student;
 import org.springframework.stereotype.Service;
 
@@ -26,4 +26,6 @@ public interface StudentService {
     void deleteStudent(Long id);
 
     void studentPartialUpdateUsingReflection(Long id, StudentRegisterDTO studentUpdate) throws IllegalAccessException;
+
+    void addStudentsToClass(Long cId, List<Long> ids);
 }

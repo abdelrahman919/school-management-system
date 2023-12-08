@@ -1,29 +1,27 @@
-package com.abdelrahman.schoolmanagementsystem.entity;
+package com.abdelrahman.schoolmanagementsystem.dto.teacher;
 
 
+import com.abdelrahman.schoolmanagementsystem.entity.Classroom;
+import com.abdelrahman.schoolmanagementsystem.entity.Subject;
+import com.abdelrahman.schoolmanagementsystem.entity.TimeTable;
 import com.abdelrahman.schoolmanagementsystem.enums.Level;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
-public class Teacher {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "teacherIdGen")
-    @SequenceGenerator(name = "teacherIdGen", allocationSize = 1)
-    private Long id;
+public class TeacherRegisterDTO {
 
 
     @NotEmpty(message = "Please enter your first name ")
@@ -54,11 +52,6 @@ public class Teacher {
     private LocalDate enrollmentDate;
 
 
-    @ManyToMany
-    @JsonIgnoreProperties({"students","teachers"})
-    private List<Classroom> classrooms;
-
-
     @NotNull
     @ElementCollection(targetClass = Level.class)
     @Enumerated(EnumType.STRING)
@@ -66,10 +59,5 @@ public class Teacher {
     private List<Level> levels;
 
 
-    @OneToOne
-    private TimeTable timeTable;
-
-
-    private boolean isEnabled;
 
 }

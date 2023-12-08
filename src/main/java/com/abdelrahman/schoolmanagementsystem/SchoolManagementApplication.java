@@ -1,7 +1,11 @@
 package com.abdelrahman.schoolmanagementsystem;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 
 @SpringBootApplication
 public class SchoolManagementApplication {
@@ -10,8 +14,12 @@ public class SchoolManagementApplication {
 		SpringApplication.run(SchoolManagementApplication.class, args);
 	}
 
-	final String  btts = "dd-MM-yyyy";
 
+
+	@Bean
+	public ModelMapper modelMapper(){
+		return new ModelMapper();
+	}
 
 
 

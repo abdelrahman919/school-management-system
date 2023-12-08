@@ -10,7 +10,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Constraint(validatedBy = {})
-@Pattern(regexp = "^0(10|11|12|15)[0-9]{8}$")
+@Pattern(regexp = "^0(10|11|12|15)[0-9]{8}$",
+        message = "Please enter a valid number" )
 public @interface Phone {
 
     public String message() default "Please enter a valid phone number.";

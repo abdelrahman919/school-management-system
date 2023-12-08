@@ -30,7 +30,7 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "studentIdGen")
     @SequenceGenerator(name = "studentIdGen", allocationSize = 1)
-    Integer id;
+    Long id;
 
     @NotEmpty(message = "Pleas enter your name")
     @Size(max = 60)
@@ -95,7 +95,7 @@ public class Student {
 
 
     @ManyToOne
-    @JsonBackReference
+    @JsonIgnoreProperties({"students"})
     private Classroom classroom;
 
 

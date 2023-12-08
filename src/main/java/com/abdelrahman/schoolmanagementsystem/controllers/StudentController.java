@@ -1,8 +1,8 @@
 package com.abdelrahman.schoolmanagementsystem.controllers;
 
 
-import com.abdelrahman.schoolmanagementsystem.dto.StudentDto;
-import com.abdelrahman.schoolmanagementsystem.dto.StudentRegisterDTO;
+import com.abdelrahman.schoolmanagementsystem.dto.student.StudentDto;
+import com.abdelrahman.schoolmanagementsystem.dto.student.StudentRegisterDTO;
 import com.abdelrahman.schoolmanagementsystem.entity.Student;
 import com.abdelrahman.schoolmanagementsystem.service.StudentService;
 import jakarta.validation.Valid;
@@ -69,6 +69,16 @@ public class StudentController {
         return studentService.addGradesToSheet(s_id,e_id,score);
 
     }
+
+    @PostMapping("/class/{cId}")
+    public ResponseEntity<Student> addStudentsToClass(@PathVariable("cId") Long cId,
+                                                      @RequestBody List<Long> ids) {
+
+        studentService.addStudentsToClass(cId,ids);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
 
 
 

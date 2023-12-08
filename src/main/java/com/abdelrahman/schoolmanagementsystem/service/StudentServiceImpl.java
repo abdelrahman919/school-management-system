@@ -1,10 +1,12 @@
 package com.abdelrahman.schoolmanagementsystem.service;
 
-import com.abdelrahman.schoolmanagementsystem.dto.StudentDto;
-import com.abdelrahman.schoolmanagementsystem.dto.StudentRegisterDTO;
+import com.abdelrahman.schoolmanagementsystem.dto.student.StudentDto;
+import com.abdelrahman.schoolmanagementsystem.dto.student.StudentRegisterDTO;
+import com.abdelrahman.schoolmanagementsystem.entity.Classroom;
 import com.abdelrahman.schoolmanagementsystem.entity.Exam;
 import com.abdelrahman.schoolmanagementsystem.entity.Student;
 import com.abdelrahman.schoolmanagementsystem.mappers.StudentMapper;
+import com.abdelrahman.schoolmanagementsystem.repository.ClassroomRepo;
 import com.abdelrahman.schoolmanagementsystem.repository.ExamRepo;
 import com.abdelrahman.schoolmanagementsystem.repository.StudentRepo;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,7 @@ public class StudentServiceImpl implements StudentService {
     private final StudentMapper studentMapper;
 
     private final ExamRepo examRepo;
+    private final ClassroomRepo classroomRepo;
 
 
 
@@ -83,6 +85,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
+
+
     @Override
     public void deleteStudent(Long id) {
         studentRepo.deleteById(id);
@@ -98,7 +102,15 @@ public class StudentServiceImpl implements StudentService {
         return student;
     }
 
+    @Override
+    public void addStudentsToClass(Long cId, List<Long> ids) {
 
+        Classroom classroom = classroomRepo.findById(cId).orElseThrow(EntityNotFoundException::new);
+        List<Student> students= studentRepo.findAllById(ids);
+        students.forEach(student ->  student.setClassroom(classroom));
+        studentRepo.saveAll(students);
+
+    }
 
 
 

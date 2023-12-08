@@ -1,4 +1,4 @@
-package com.abdelrahman.schoolmanagementsystem.dto;
+package com.abdelrahman.schoolmanagementsystem.dto.student;
 
 
 import com.abdelrahman.schoolmanagementsystem.entity.*;
