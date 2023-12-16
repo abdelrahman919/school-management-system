@@ -1,10 +1,12 @@
 package com.abdelrahman.schoolmanagementsystem.entity;
 
 
+
 import com.abdelrahman.schoolmanagementsystem.enums.Gender;
 import com.abdelrahman.schoolmanagementsystem.enums.Level;
 import com.abdelrahman.schoolmanagementsystem.validation.Phone;
 import com.fasterxml.jackson.annotation.*;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -81,6 +83,13 @@ public class Student {
 
 
 
+    //NOTE:
+    //THIS MAP CAUSED JSON SERIALIZATION ISSUES THAT WERE SOLVED IN 2 WAYS
+    //1- IGNORE IT FROM JSON SERIALIZATION WITH JsonIgnore
+    //2- CREATE CUSTOM SERIALIZATION AND DESERIALIZATION CLASSES
+
+/*    @JsonSerialize(using = ExamScoreMapSerializer.class)
+    @JsonDeserialize(using = ExamScoreMapDeserializer.class)*/
     @JsonIgnore
     @ElementCollection
     @CollectionTable(name = "student_grades",

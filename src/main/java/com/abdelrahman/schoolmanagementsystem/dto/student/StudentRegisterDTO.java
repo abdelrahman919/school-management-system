@@ -1,11 +1,16 @@
 package com.abdelrahman.schoolmanagementsystem.dto.student;
 
 
+
+import com.abdelrahman.schoolmanagementsystem.config.ExamScoreMapDeserializer;
+import com.abdelrahman.schoolmanagementsystem.config.ExamScoreMapSerializer;
 import com.abdelrahman.schoolmanagementsystem.entity.*;
 import com.abdelrahman.schoolmanagementsystem.enums.Gender;
 import com.abdelrahman.schoolmanagementsystem.enums.Level;
 import com.abdelrahman.schoolmanagementsystem.validation.Phone;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -69,7 +74,9 @@ public class StudentRegisterDTO {
 
     private Classroom classroom;
 
-
+    @JsonSerialize(using = ExamScoreMapSerializer.class)
+    @JsonDeserialize(using = ExamScoreMapDeserializer.class)
+    Map<Exam, Integer> gradeSheet;
 
 
 

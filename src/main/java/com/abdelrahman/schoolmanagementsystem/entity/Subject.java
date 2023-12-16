@@ -1,9 +1,9 @@
 package com.abdelrahman.schoolmanagementsystem.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,12 +14,20 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+
 public class Subject {
 
-    private String title;
+/*    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "subjectIdGen")
+    @SequenceGenerator(name = "subjectIdGen",allocationSize = 1)
+    private Long id;*/
 
-    @OneToMany //TODO
-    private List<Teacher> teachers;
+    @Id
+    private String name;
+
+
+
+
 
 
 

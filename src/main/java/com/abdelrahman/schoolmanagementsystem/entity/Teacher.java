@@ -44,8 +44,8 @@ public class Teacher {
     private String password;
 
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private Subject subject;
+    @ManyToMany
+    private List<Subject> subjects;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;

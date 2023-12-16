@@ -21,16 +21,16 @@ public class Guardian {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "guardianIdGen")
     @SequenceGenerator(name = "guardianIdGen", allocationSize = 1)
-    private Long guardianId;
+    private Long id;
 
     @NotBlank
-    private String guardianName;
+    private String name;
 
     @NotBlank
-    private String guardianRelation;
+    private String relation;
 
     @Phone
-    private String guardianPhoneNumber;
+    private String phoneNumber;
 
     /*@OneToMany(mappedBy = "guardian")
     @NotNull
