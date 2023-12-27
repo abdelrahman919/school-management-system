@@ -3,6 +3,7 @@ package com.abdelrahman.schoolmanagementsystem.controllers;
 
 import com.abdelrahman.schoolmanagementsystem.dto.student.StudentDto;
 import com.abdelrahman.schoolmanagementsystem.dto.student.StudentRegisterDTO;
+import com.abdelrahman.schoolmanagementsystem.entity.AttendanceRecord;
 import com.abdelrahman.schoolmanagementsystem.entity.Student;
 import com.abdelrahman.schoolmanagementsystem.service.StudentService;
 import jakarta.validation.Valid;
@@ -12,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/s")
@@ -79,6 +82,13 @@ public class StudentController {
 
     }
 
+    @PostMapping("/att/{id}")
+    public AttendanceRecord addDaysToRecord(@PathVariable("id") Long id,
+                                            @RequestBody Map<LocalDate, Boolean> date) {
+
+        studentService.addDaysToRecord(id,date);
+        return studentService.getStudentById(id).getAttendanceRecord();
+    }
 
 
 

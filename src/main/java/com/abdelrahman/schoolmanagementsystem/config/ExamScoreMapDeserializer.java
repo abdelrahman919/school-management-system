@@ -3,6 +3,7 @@ package com.abdelrahman.schoolmanagementsystem.config;
 import com.abdelrahman.schoolmanagementsystem.entity.Exam;
 import com.abdelrahman.schoolmanagementsystem.repository.ExamRepo;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,7 +21,7 @@ public class ExamScoreMapDeserializer extends JsonDeserializer<Map<Exam, Integer
     @Override
     public Map<Exam, Integer> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         Map<Exam, Integer> examScoreMap = new HashMap<>();
-        while (jsonParser.nextToken() != null) {
+        while (jsonParser.nextToken() != JsonToken.END_OBJECT) {
             try {
                 String examIdAsString = jsonParser.getCurrentName();
                 jsonParser.nextToken();
@@ -32,12 +33,6 @@ public class ExamScoreMapDeserializer extends JsonDeserializer<Map<Exam, Integer
                 examScoreMap.put(exam, score);
             } catch (NumberFormatException e) {
                 // Handle the NumberFormatException if needed
-                e.printStackTrace();
-            } catch (EntityNotFoundException e) {
-                // Handle the EntityNotFoundException if needed
-                e.printStackTrace();
-            } catch (IOException e) {
-                // Handle the IOException if needed
                 e.printStackTrace();
             }
         }

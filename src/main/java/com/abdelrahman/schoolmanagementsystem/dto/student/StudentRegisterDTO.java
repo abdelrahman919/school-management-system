@@ -78,6 +78,7 @@ public class StudentRegisterDTO {
     @JsonDeserialize(using = ExamScoreMapDeserializer.class)
     Map<Exam, Integer> gradeSheet;
 
+    AttendanceRecord attendanceRecord;
 
 
 

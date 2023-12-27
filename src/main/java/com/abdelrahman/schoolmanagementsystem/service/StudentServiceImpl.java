@@ -2,6 +2,7 @@ package com.abdelrahman.schoolmanagementsystem.service;
 
 import com.abdelrahman.schoolmanagementsystem.dto.student.StudentDto;
 import com.abdelrahman.schoolmanagementsystem.dto.student.StudentRegisterDTO;
+import com.abdelrahman.schoolmanagementsystem.entity.AttendanceRecord;
 import com.abdelrahman.schoolmanagementsystem.entity.Classroom;
 import com.abdelrahman.schoolmanagementsystem.entity.Exam;
 import com.abdelrahman.schoolmanagementsystem.entity.Student;
@@ -12,9 +13,11 @@ import com.abdelrahman.schoolmanagementsystem.repository.StudentRepo;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.lang.reflect.Field;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +29,7 @@ public class StudentServiceImpl implements StudentService {
 
     private final ExamRepo examRepo;
     private final ClassroomRepo classroomRepo;
+
 
 
 
@@ -112,13 +116,17 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+    @Override
+    public void addDaysToRecord(Long id, Map<LocalDate, Boolean> date) {
+        Student student = studentRepo.findById(id).orElseThrow(EntityNotFoundException::new);
 
+        if (student.getAttendanceRecord() == null) {
+            student.setAttendanceRecord(new AttendanceRecord());
+        }
+        student.getAttendanceRecord().getAbsenceDays().putAll(date);
+        studentRepo.save(student);
 
-
-
-
-
-
+    }
 
 
 
